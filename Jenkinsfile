@@ -3,13 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/YOUR_USERNAME/registration-cicd.git'
-            }
-        }
-
         stage('Validate HTML') {
             steps {
                 sh '''
@@ -27,7 +20,6 @@ pipeline {
         stage('Deploy to Web Server') {
             steps {
                 sh '''
-                    echo "Deploying registration.html to Apache..."
                     sudo cp registration.html /var/www/html/registration.html
                     echo "Deployment successful!"
                 '''
@@ -43,10 +35,23 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline completed successfully! Registration page is live.'
+            echo 'Pipeline completed! Registration page is live.'
         }
         failure {
             echo 'Pipeline failed. Check the logs above.'
         }
     }
 }
+```
+
+**3. Scroll down → Click "Commit changes"**
+- Select **"Commit directly to the master branch"**
+- Click **Commit changes**
+
+---
+
+### Verify the Commit Was Saved
+
+After committing, go to:
+```
+https://github.com/Deepak1549/Lab2-repo-svecw/commits/master
