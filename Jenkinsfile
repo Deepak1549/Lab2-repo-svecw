@@ -5,24 +5,13 @@ pipeline {
 
         stage('Validate HTML') {
             steps {
-                sh '''
-                    echo "Checking if registration.html exists..."
-                    if [ -f registration.html ]; then
-                        echo "File found. Validation passed."
-                    else
-                        echo "ERROR: registration.html not found!"
-                        exit 1
-                    fi
-                '''
+                sh 'if [ -f registration.html ]; then echo "File found. Validation passed."; else echo "ERROR: Not found!"; exit 1; fi'
             }
         }
 
         stage('Deploy to Web Server') {
             steps {
-                sh '''
-                    sudo cp registration.html /var/www/html/registration.html
-                    echo "Deployment successful!"
-                '''
+                sh 'sudo cp registration.html /var/www/html/registration.html'
             }
         }
 
@@ -42,16 +31,3 @@ pipeline {
         }
     }
 }
-```
-
-**3. Scroll down → Click "Commit changes"**
-- Select **"Commit directly to the master branch"**
-- Click **Commit changes**
-
----
-
-### Verify the Commit Was Saved
-
-After committing, go to:
-```
-https://github.com/Deepak1549/Lab2-repo-svecw/commits/master
